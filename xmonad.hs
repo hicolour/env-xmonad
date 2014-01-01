@@ -312,7 +312,6 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
   -- bookmarks
   , ((mod1Mask,   xK_m  ), spawn "xdg-open https://mail.google.com/")
   , ((mod1Mask,   xK_r  ), spawn "xdg-open http://www.google.com/reader/view/")
-  , ((mod1Mask,   xK_f  ), spawn "xdg-open http://fitlog.ru/ksevelyar")
 
   -- resizing
   , ((modm .|. shiftMask,   xK_Left  ), sendMessage Shrink)
@@ -342,6 +341,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
   , ((modm, xK_F1 ), namedScratchpadAction scratchpads "terminal")
   , ((modm, xK_F2 ), namedScratchpadAction scratchpads "htop")
   , ((modm, xK_F3 ), namedScratchpadAction scratchpads "wicd-curses")
+  , ((modm, xK_F4 ), namedScratchpadAction scratchpads "alsamixer")
 
 
   --, ((modm, xK_r), namedScratchpadAction scratchpads "ranger")
