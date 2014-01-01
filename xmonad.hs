@@ -45,6 +45,29 @@ import XMonad.Layout.IM
 import XMonad.Layout.PerWorkspace (onWorkspace)
 
 
+-- 
+-- Mod
+-- Quick config:
+-- ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┲━━━━━━━━━━┓
+-- │  w1 │  w2 │  w3 │  w4 │  w5 │  w6 │  w7 │  w8 │  w9 │  w10│  w11│  w12│  w13┃          ┃
+-- │ `   │ 1   │ 2   │ 3   │ 4   │ 5   │ 6   │ 7   │ 8   │ 9   │ 0   │ -   │ =   ┃ ⌫        ┃
+-- ┢━━━━━┷━━┱──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┺━━┯━━━━━━━┩
+-- ┃        ┃close│     │     │     │     │     │     │     │     │dmenu│     │ }   │ |     │
+-- ┃ ↹      ┃ q   │ w   │ e   │ r   │ t   │ y   │ u   │ i   │ o   │ p   │ [   │ ]   │ \     │
+-- ┣━━━━━━━━┻┱────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┲━━━━┷━━━━━━━┪
+-- ┃         ┃     │     │     │ full│     │     │     │     │     │     │     ┃ terminal   ┃
+-- ┃ ⇬       ┃ a   │ s   │ d   │ f   │ g   │ h   │ j   │ k   │ l   │ ;   │ '   ┃ ⏎          ┃
+-- ┣━━━━━━━━━┻━━┱──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┲━━┻━━━━━━━━━━━━┫       ┌─────┐
+-- ┃            ┃     │     │     │     │ subl│     │     │     │     │     ┃               ┃       │     │
+-- ┃ ⇧          ┃ z   │ x   │ c   │ v   │ b   │ n   │ m   │ ,   │ .   │ /   ┃ ⇧             ┃       │ ↑   │
+-- ┣━━━━━━━┳━━━━┻━━┳━━┷━━━━┱┴─────┴─────┴─────┴─────┴─────┴─┲━━━┷━━━┳━┷━━━━━╋━━━━━━━┳━━━━━━━┫ ┌─────┼─────┼─────┐
+-- ┃       ┃ *mod* ┃       ┃         layout                 ┃       ┃       ┃       ┃       ┃ │     │     │     │
+-- ┃ Ctrl  ┃ super ┃ Alt   ┃ Space                          ┃ AltGr ┃ super ┃ menu  ┃ Ctrl  ┃ │ ←   │ ↓   │ →   │
+-- ┗━━━━━━━┻━━━━━━━┻━━━━━━━┹────────────────────────────────┺━━━━━━━┻━━━━━━━┻━━━━━━━┻━━━━━━━┛ └─────┴─────┴─────┘
+--
+
+
+
 
 -- Main ------------------------------------------------------------------------
 
@@ -89,7 +112,8 @@ myFocusedBorderColor = "#5a676b"
 --myFocusedBorderColor = "#353b3e"
 
 
-myWorkspaces= ["1:m-term","2:d-term","3:www","4:d-www","5:note","6:d-ide","7:d-ide","8:im","9:media","0:null"]
+
+myWorkspaces= ["~:","1:t","2:t","3:w","4:w","5:n","6:i","7:i","8:im","9:m","0:n","-:m","=:n"]
 
 -- Layouts ---------------------------------------------------------------------
 
@@ -135,7 +159,7 @@ myManageHook = (composeAll . concat $
   , [className =? c --> viewShift "8:im"      | c <- myIm         ]
   , [className =? c --> viewShift "gfx"     | c <- myGfxs       ]
   , [className =? c --> viewShift "6:d-ide" | c <- myDevIde     ]
-  , [className =? c --> viewShift "5:note"    | c <- myNote       ]
+  , [className =? c --> viewShift "5:n"    | c <- myNote       ]
  -- , [className =? c --> doShift "3:www"    | c <- myWww       ]
   , [role      =? r --> doShift   "serv"    | r <- myServ       ]
   , [role      =? r --> doShift   "gen"     | r <- myGen        ]
@@ -381,11 +405,10 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
   --
   --[((m .|. modm, k), windows $ f i)
   --    | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
-  --    , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
+  --    , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]!!
 
   [((m .|. modm, k), windows $ f i)
-         | (i, k) <- zip myWorkspaces [xK_1 .. xK_9]
-         --| (i, k) <- zip myWorkspaces [xK_1, xK_2, xK_3, xK_4, xK_5, xK_6, xK_7, xK_8, xK_9, xK_0]
+           | (i, k) <- zip myWorkspaces [xK_quoteleft,xK_1,xK_2,xK_3,xK_4,xK_5,xK_6,xK_7,xK_8,xK_9,xK_0,xK_minus,xK_equal]
          , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
   ++
 
