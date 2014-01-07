@@ -46,8 +46,9 @@ import XMonad.Layout.PerWorkspace (onWorkspace)
 
 
 -- 
--- Mod
--- Quick config:
+--
+--
+-- quick config:
 -- ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┲━━━━━━━━━━┓
 -- │  w1 │  w2 │  w3 │  w4 │  w5 │  w6 │  w7 │  w8 │  w9 │  w10│  w11│  w12│  w13┃          ┃
 -- │ `   │ 1   │ 2   │ 3   │ 4   │ 5   │ 6   │ 7   │ 8   │ 9   │ 0   │ -   │ =   ┃ ⌫        ┃
@@ -62,9 +63,16 @@ import XMonad.Layout.PerWorkspace (onWorkspace)
 -- ┃ ⇧          ┃ z   │ x   │ c   │ v   │ b   │ n   │ m   │ ,   │ .   │ /   ┃ ⇧             ┃       │ ↑   │
 -- ┣━━━━━━━┳━━━━┻━━┳━━┷━━━━┱┴─────┴─────┴─────┴─────┴─────┴─┲━━━┷━━━┳━┷━━━━━╋━━━━━━━┳━━━━━━━┫ ┌─────┼─────┼─────┐
 -- ┃       ┃ *mod* ┃       ┃         layout                 ┃       ┃       ┃       ┃       ┃ │     │     │     │
--- ┃ Ctrl  ┃ super ┃ Alt   ┃ Space                          ┃ AltGr ┃ super ┃ menu  ┃ Ctrl  ┃ │ ←   │ ↓   │ →   │
--- ┗━━━━━━━┻━━━━━━━┻━━━━━━━┹────────────────────────────────┺━━━━━━━┻━━━━━━━┻━━━━━━━┻━━━━━━━┛ └─────┴─────┴─────┘
+-- ┃ Ctrl  ┃ super ┃ Alt   ┃ Space                          ┃ AltGr ┃ super ┃ menu  ┃ Ctrl  ┃
+-- ┗━━━━━━━┻━━━━━━━┻━━━━━━━┹────────────────────────────────┺━━━━━━━┻━━━━━━━┻━━━━━━━┻━━━━━━━┛
 --
+ --      ┌─────┐
+ --      │     │
+ --      │ ↑   │
+ -- ┌─────┼─────┼─────┐
+ -- │     │     │     │
+ -- │ ←   │ ↓   │ →   │
+ -- └─────┴─────┴─────┘
 
 
 
@@ -146,7 +154,10 @@ myLayout = windowNavigation $
 
   skypeRoster     = (ClassName "Skype") `And` (Not (Title "Options")) `And` (Not (Role "ConversationsWindow")) `And` (Not (Role "CallWindowForm"))
 
-  im = renamed [Replace "im" ] $ withIM (0.18) skypeRoster $
+  pidginRoster     = (ClassName "Pidgin") `And` (Not (Title "Options")) `And` (Not (Role "ConversationsWindow")) `And` (Not (Role "CallWindowForm"))
+
+
+  im = renamed [Replace "im" ] $ withIM (0.18) skypeRoster $ withIM (0.18) pidginRoster $
                                  reflectHoriz $
                                  withIM (0.25) (ClassName "Mumble") grid
 
