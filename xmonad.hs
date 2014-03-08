@@ -121,7 +121,7 @@ myFocusedBorderColor = "#5a676b"
 
 
 
-myWorkspaces= ["~:","1:t","2:t","3:w","4:w","5:n","6:i","7:i","8:im","9:m","0:n","-:m","=:n"]
+myWorkspaces= ["~:","1:t","2:t","3:w","4:w","5:n","6:i","7:i","8:im","9:tw","0:n","-:m","=:n"]
 
 -- Layouts ---------------------------------------------------------------------
 
@@ -156,6 +156,8 @@ myLayout = windowNavigation $
 
   pidginRoster     = (ClassName "Pidgin") `And` (Not (Title "Options")) `And` (Not (Role "ConversationsWindow")) `And` (Not (Role "CallWindowForm"))
 
+  hototRoster     = (ClassName "Hotot") 
+
 
   im = renamed [Replace "im" ] $ withIM (0.18) skypeRoster $ withIM (0.18) pidginRoster $
                                  reflectHoriz $
@@ -166,15 +168,20 @@ myLayout = windowNavigation $
 
 myManageHook = (composeAll . concat $
   [
-    [resource  =? r --> doIgnore            | r <- myIgnores    ]
+    [resource  =? r --> doIgnore              | r <- myIgnores    ]
   , [className =? c --> viewShift "8:im"      | c <- myIm         ]
-  , [className =? c --> viewShift "gfx"     | c <- myGfxs       ]
-  , [className =? c --> viewShift "6:d-ide" | c <- myDevIde     ]
-  , [className =? c --> viewShift "5:n"    | c <- myNote       ]
+  , [className =? c --> viewShift "9:tw"      | c <- myTwitt      ]
+  , [className =? c --> viewShift "5:n"      | c <- myNote      ]
+
+
+
+  --, [className =? c --> viewShift "gfx"     | c <- myGfxs       ]
+  --, [className =? c --> viewShift "6:d-ide" | c <- myDevIde     ]
+  --, [className =? c --> viewShift "9:tw"    | c <- myTwitt       ]
  -- , [className =? c --> doShift "3:www"    | c <- myWww       ]
-  , [role      =? r --> doShift   "serv"    | r <- myServ       ]
-  , [role      =? r --> doShift   "gen"     | r <- myGen        ]
-  , [role      =? r --> doShift   "fs"      | r <- myFs         ]
+  --, [role      =? r --> doShift   "serv"    | r <- myServ       ]
+  --, [role      =? r --> doShift   "gen"     | r <- myGen        ]
+  --, [role      =? r --> doShift   "fs"      | r <- myFs         ]
 
 
   , [name      =? n --> doCenterFloat      | n <- myNames      ]
@@ -203,6 +210,7 @@ myManageHook = (composeAll . concat $
   myFloats      = ["MPlayer", "Vlc", "Smplayer", "Lxappearance", "XFontSel"]
   myFullFloats  = ["feh", "Mirage", "Zathura", "Mcomix"]
   myIm          = ["Pidgin", "Mumble", "Skype"]
+  myTwitt       = ["Hotot-gtk3"]
   myGfxs        = ["Inkscape", "Gimp"]
 
   -- Gerally IntelliJ
